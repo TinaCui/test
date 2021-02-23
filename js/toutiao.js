@@ -65,18 +65,27 @@ console.log('script end');
 
 
 /*实现Function的bind方法，使得以下程序最后能输出‘success’*/
+/**
+ * 1.bind()除了this还接收其他参数，bind()返回的函数也接收参数，这两部分的参数都要传给返回的函数
+ * 2.new的优先级：如果bind绑定后的函数被new了，那么此时this指向就发生改变。此时的this就是当前函数的实例（this）,而不是传入的（context）
+ * 3.没有保留原函数在原型链上的属性和方法
+ * @param context
+ * @param args
+ * @return {fn}
+ */
 Function.prototype.bind = function(context,...args){
     if (typeof this !== 'function') {
         throw TypeError("Bind must be called on a function")
     }
     let self = this;
     let fn = function(){
+        //如果当前函数的this指向的是构造函数中的this 则判定为new 操作
         self.apply(this instanceof self ? this : context, args.concat(Array.prototype.slice.apply(arguments)));
     }
+    // 继承原型上的属性和方法
     fn.prototype = Object.create(self.prototype);
     return fn;
 }
-
 
 function Animal(name,color){
     this.name = name;
@@ -91,6 +100,36 @@ const cat = new Cat('white');
 if(cat.say()==='I\'m a white cat' && cat instanceof Animal ){
     console.log('success');
 }
+
+
+/*如果上题要求不允许使用apply call等方法，则需要手动实现apply 或者call*/
+/**
+ * 实现Function原型上apply方法
+ * @param context 上下文
+ * @param args 参数为数组
+ */
+Function.prototype.apply = function(context,args) {
+    context = context || window;
+    context.fn = this;
+    let result = context.fn(...args);
+    delete context.fn;
+    return result;
+}
+
+/**
+ * 实现Function原型上call方法
+ * @param context 上下文
+ * @param args 参数一个个列出
+ */
+Function.prototype.call = function (context, ...args) {
+    context = context || window;
+    context.fn = this;
+    let result = context.fn(...args);
+    delete context.fn;
+    return result;
+}
+
+
 
 /*节流函数:预先设定一个执行周期，当调用动作的时刻大于等于执行周期则执行该动作，然后进入下一个新周期
 实现原理是：当用户触发一个事件时，先setTimeout让这个事件延迟一会儿再执行，如果这个时间间隔内有触发了这个事件，那就clear掉原来的定时器，在setTimeout一个新的定时器延迟一会儿再执行
