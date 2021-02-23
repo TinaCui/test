@@ -14,30 +14,30 @@
         width: 200px;
         float: left;
     }
-    
+
     /*方法三
     .wrap{
         display: flex;
     }*/
     .right{
         /* 方法一 */
-        margin-left: 200px; 
+        margin-left: 200px;
         /*方法二 ‘-’前后需要有空格
         margin-left:200px;
         width: calc(100% - 200px);  */
         /*方法三 flex
         flex: 1;*/
     }
-    
-    
+
+
     .parentBox{
         margin-top: 20px;
         /*height: 202px;方法一*/
-        /*overflow: hidden;方法二*/
+        overflow: hidden;/*方法二*/
         /*float: left;方法四 设置父元素也是浮动*/
-        
+
     }
-    /*方法三
+    /*!*方法三*!
     .parentBox:after{
         display: block;
         content: '';
@@ -46,9 +46,9 @@
         height: 0;
     }*/
     /*方法四*/
-    .clearBoth{
+    /*.clearBoth{
         clear: both;
-    }
+    }*/
     .floatBox{
         border: solid 1px #333;
         width:200px;
@@ -63,13 +63,13 @@
         <div class="section left">left</div>
         <div class="section right">right</div>
     </div>
-    
-    
-    <!-- 撑起浮动元素父元素的高度 -->
+
+
+    <!--清除浮动 撑起浮动元素父元素的高度 -->
     <div class="parentBox">
-        <div class="floatBox"></div>
-        <div class="clearBoth"></div>
+        <div class="floatBox">float</div>
+        <div class="clearBoth">content</div>
     </div>
-    
+
 </body>
 </html>

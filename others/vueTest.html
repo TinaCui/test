@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本概念</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<h1>显示优先级</h1>
+<ul>
+    <li>第一个是render 有render方法就输出render的渲染结果</li>
+    <li>第二个是template 有template方法就输出template的内容</li>
+    <li>最后一个是data，如果两者不存在 则输出data里面的插值表达式</li>
+    {{ }} 当这里面放的是一个表达式的时候，会输出表达式的结果 原因 会转化成一个函数 render
+</ul>
+<p>指令修饰符,有好多 自己官网看</p>
+
+<div id="app">
+
+    {{ msg }}
+</div>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                msg: '我是data',
+            }
+        },
+        template: '<div>我是template</div>',
+        render(h) {
+            return h('div', ['我是render'])
+        },
+        method: {
+            fn(e) { // 不添加括号自动添加事件源, 添加括号 手动传入事件源
+                console.log('内部已经使用bind 绑定了this ,再次绑定也没什么用')
+                console.log(this)
+            },
+        },
+    })
+</script>
+</body>
+</html>

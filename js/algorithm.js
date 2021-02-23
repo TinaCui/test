@@ -9,14 +9,22 @@ function quickSort(arr){
     let leftArr = [];
     let rightArr = [];
     let middle = arr[0];
-    for(let i=0;i<arr.length;i++){
-        if(arr[i]<middle){
-            leftArr.push(arr[i]);
-        }else if(arr[i] > middle){
-            rightArr.push(arr[i]);
-        }
+    for(let i=1;i<arr.length;i++){
+        arr[i] < middle ? leftArr.push(arr[i]) : rightArr.push(arr[i]);
     }
     return [].concat(quickSort(leftArr),[middle],quickSort(rightArr));
+}
+
+function quickSort(arr) {
+    if(arr.length <= 1) return arr          //递归终止条件
+    const pivot = arr.length / 2 | 0        //基准点
+    const pivotValue = arr.splice(pivot, 1)
+    const leftArr = []
+    const rightArr = []
+    arr.forEach(val => {
+        val > pivotValue ? rightArr.push(val) : leftArr.push(val)
+    })
+    return [ ...quickSort(leftArr), pivotValue, ...quickSort(rightArr)].flat()
 }
 
 /*
@@ -41,7 +49,7 @@ function getMaxProfit(arr){
 /*
 随机生成指定长度的字符串
 */
-function randomString(n) {  
+function randomString(n) {
   let str = 'abcdefghijklmnopqrstuvwxyz9876543210';
   let tmp = '',
       i = 0,
@@ -56,7 +64,7 @@ function randomString(n) {
 实现类似getElementsByClassName 的功能
 */
 
-function queryClassName(node, name) {  
+function queryClassName(node, name) {
   var starts = '(^|[ \n\r\t\f])',
        ends = '([ \n\r\t\f]|$)';
   var array = [],
@@ -65,16 +73,16 @@ function queryClassName(node, name) {
         length = elements.length,
         i = 0,
         element;
- 
+
     while (i < length) {
         element = elements[i];
         if (regex.test(element.className)) {
             array.push(element);
         }
- 
+
         i += 1;
     }
- 
+
     return array;
 }
 /* 使用JS 实现二叉查找树(Binary Search Tree)
@@ -121,8 +129,8 @@ class BinarySearchTree{
             }
         }
     }
-    
-    
+
+
     find(data){
         let current = this.root;
         while(current!=null){
@@ -137,6 +145,6 @@ class BinarySearchTree{
         return current;
     }
     removeNode(data){
-        
+
     }
 }

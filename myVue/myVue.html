@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Vue</title>
+    <script src="myVue.js"></script>
+
+</head>
+<body id="root">
+    <div>
+        <input type="text" v-model="name">
+        <input type="text" v-model="age">
+        <button v-click="handleClick">点击</button>
+        <span v-bind="name"></span>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'#root',
+        data:{
+            name:'cuicui',
+            age:20
+        },
+        methods:{
+            handleClick:function(){
+                alert(this.name)
+            }
+        }
+    })
+</script>
+</html>

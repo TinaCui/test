@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style type="text/css">
+    .triangle1 {
+        width: 20px;
+        height: 20px;
+        background-color: blue;
+        border-top: 50px solid red;
+        border-left: 50px solid green;
+        border-right: 50px solid yellow;
+        border-bottom: 50px solid purple;
+    }
+    .triangle2 {
+        width: 0px;
+        height: 0px;
+        border-top: 50px solid red;
+        border-left: 50px solid green;
+        border-right: 50px solid yellow;
+        border-bottom: 50px solid purple;
+    }
+    .triangle3 {
+        width: 0px;
+        height: 0px;
+        border-top: 50px solid transparent;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 50px solid purple;
+    }
+    <!-- 简写模式 -->
+    .triangle3 {
+        width: 0px;
+        height: 0px;
+        border: 50px solid transparent;
+        border-bottom: 50px solid purple;
+    }
+
+    .triangle4 {
+        width: 0px;
+        height: 0px;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 50px solid purple;
+    }
+    .inline {
+        display: inline-block;
+    }
+    .rectangle {
+        width: 100px;
+        height: 50px;
+        background-color: purple;
+    }
+    .left-triangle {
+        transform: translateX(56px);
+    }
+    .right-triangle {
+        transform: translateX(-56px);
+    }
+    .sector {
+        width: 0px;
+        border: solid 50px transparent;
+        border-right: 50px solid red;
+        border-left: 0;
+        border-radius: 50%;
+}
+.child {
+width: 200px;
+height: 20px;
+background-color: aqua;
+}
+.child2 {
+transform: translateY(200px);
+}
+</style>
+<!-- 实现三角形-->
+<div class="triangle1"></div><br>
+<div class="triangle2"></div><br>
+
+<div>将其他三边的border设置为透明,形成三角形的占用空间为：width=100,height=100</div>
+<div class="triangle3"></div><br>
+
+<div>不设置上边框，可使三角形占用的空间尽量减少,形成三角形的占用空间为：width=100,height=50</div>
+<div class="triangle4"></div><br>
+
+<!-- 实现梯形-->
+<div>用两个三角形和一个矩形实现梯形</div>
+<div class="inline triangle4 left-triangle"></div>
+<div class="inline rectangle"></div>
+<div class="inline triangle4 right-triangle"></div>
+
+<!-- 实现扇形-->
+<div>实现扇形，和三角形同理，只是增加border-radius:50%</div>
+<div class="sector"></div>
+
+
+<!--
+将child2沿着Y轴平移后三个child节点的位置变化
+1.顺序变成1,3,2,但3的位置保持不变，不会移动到2的位置
+2.tansform不会脱离文档流 经过transform的节点 原位置保持不变 只是对节点本身进行动画变形
+-->
+<div>
+    <div class="child child1"></div>
+    <div class="child child2"></div>
+    <div class="child child3"></div>
+    <div class="child child4"></div>
+</div>
+</body>
+</html>
