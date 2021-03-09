@@ -131,29 +131,62 @@ Function.prototype.call = function (context, ...args) {
 
 
 
-/*节流函数:预先设定一个执行周期，当调用动作的时刻大于等于执行周期则执行该动作，然后进入下一个新周期
+/*节流函数:函数节流指的是某个函数在一定时间间隔内（例如 3 秒）只执行一次，在这 3 秒内 无视后来产生的函数调用请求
+(预先设定一个执行周期，当调用动作的时刻大于等于执行周期则执行该动作，然后进入下一个新周期)
 实现原理是：当用户触发一个事件时，先setTimeout让这个事件延迟一会儿再执行，如果这个时间间隔内有触发了这个事件，那就clear掉原来的定时器，在setTimeout一个新的定时器延迟一会儿再执行
 */
-function throttle(fn,wait,mustRun){
-    var timer,
+/*function throttle(fn,wait,mustRun){
+    let timer,
         startTime = Date.now();
 
     return function() {
-        var context = this,
+        let context = this,
             args = arguments,
             curTime = Date.now();
         clearTimeout(timer);
         // 如果达到了规定的触发时间间隔，触发 handler
         if(curTime - startTime >= mustRun){
-            func.apply(context,args);
+            fn.apply(context,args);
             startTime = curTime;
         // 没达到触发间隔，重新设定定时器
         }else{
             timer = setTimeout(func, wait);
         }
     };
+}*/
+
+
+function throttle(fn,wait) {
+    let timer,
+        firstTime = true;
+    return function () {
+        if(firstTime) { //第一次调用不需要延迟
+            fn.apply(this,arguments);
+            firstTime = false;
+            return;
+        }
+        if (timer) {
+            return;
+        }
+        timer = setTimeout(()=>{
+            clearTimeout(timer);
+            fn.apply(this, arguments);
+        },wait)
+
+    }
+
 }
 
+function throttle(fn,wait) {
+    let startTime = Date.now();
+    return function () {
+        let now = Date.now();
+        if(now - startTime >= wait) {
+            fn.apply(this, arguments);
+            startTime = now;
+        }
+    }
+}
 /*
 函数防抖:函数防抖就是让某个函数在上一次执行后，满足等待某个时间内不再触发此函数后再执行，而在这个等待时间内再次触发此函数，等待时间会重新计算。
 
