@@ -15,7 +15,6 @@ function myNew(fn, ...args) {
     }
     let obj = Object.create(fn.prototype);//1：创建一个新对象，并继承构造函数的原型（通过Object.create()方法实现），这一步是为了继承构造函数原型的属性和方法
     let result = fn.apply(obj,args); //2：执行构造函数，并将构造函数内的this指定为第一步新创建的对象，这一步是为了执行构造函数的赋值操作
-    console.log(result);
     return typeof result === "object" && result !== null ? result : obj //3：如果执行构造函数返回的是对象，则将该对象返回，否则返回第一步创建的对象
 }
 

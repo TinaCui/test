@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>
+    实现一个自适应16:9的矩形
+</title>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    .wrap{
+        width: 20%;
+    }
+
+    .rectangle{
+        position: relative;
+        background: red;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;  /*    9/16=56.25, 如果要生成4：3，替换成75%    */
+    }
+    .content {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+
+</style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="rectangle">
+            <div class="content">这是一个16：9的矩形</div>
+        </div>
+    </div>
+
+
+</body>
