@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>
+    Test
+</title>
+
+<style>
+    /*三栏布局  左右边定宽 中间自适应  */
+
+    /*方案一：flex布局
+    .wrap{
+        display: flex;
+    }
+    .section{
+        border: solid 1px #333;
+        height: 200px;
+    }
+    .left, .right{
+        width: 200px;
+    }
+    .middle{
+        flex: 1;
+    }*/
+    /*方法二：float浮动布局
+    注意：right元素放在middle之前，不能放在middle后面，否则right会到下一行右边
+    缺点：如果总页面总宽度小于left和right宽度之和时，right会到下一行
+    */
+    /*.section {
+        border: solid 1px #333;
+        box-sizing: border-box;
+    }
+    .left, .right{
+        width: 200px;
+    }
+    .left {
+        float: left;
+    }
+    .right {
+        float: right;
+    }
+    .middle {
+        margin:0 200px;
+    }*/
+
+    /*方法三：float浮动布局，全部向左浮动，中间通过calc函数计算宽度
+    .wrap{
+        width: 100%;
+        height: 100%;
+    }
+    .section {
+        float: left;
+        border: solid 1px #333;
+    }
+    .left, .right{
+        width: 200px;
+    }
+    .middle {
+        width: calc(100% - 406px);
+    }
+    */
+
+
+    /*方法四:position定位布局*/
+    .wrap{
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    .left {
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: yellow;
+    }
+    .right {
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: blue;
+    }
+    .middle {
+        background-color: red;
+        height: 100px;
+        margin: 0 200px;
+    }
+
+</style>
+
+</head>
+<body>
+
+    <!--方法一：flex布局 -->
+    <!--方法三：float 浮动布局  -->
+    <!--方法四：position 定位布局  -->
+
+    <div class="wrap">
+        <div class="section left">left</div>
+        <div class="section middle">middle</div>
+        <div class="section right">right</div>
+    </div>
+
+
+    <!--方法二：浮动布局 -->
+    <!--<div class="wrap">
+        <div class="section left">left</div>
+        <div class="section right">right</div>
+        <div class="section middle">middle</div>
+    </div>-->
+
+
+</body>
+</html>
