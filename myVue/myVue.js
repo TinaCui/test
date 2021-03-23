@@ -87,6 +87,14 @@ Vue.prototype._complie = function (root) {
 }
 
 /**
+ *
+ * @constructor
+ */
+function Dep(){
+
+}
+
+/**
  * 观察者（订阅者）构造函数，当data属性值变化时，更新dom节点的值
  * @param vm
  * @constructor

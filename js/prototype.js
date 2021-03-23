@@ -134,7 +134,7 @@ function createObj(o) {
  * 寄生组合式继承：修复了组合继承调用两次父类的缺点。完美实现了继承~~~~
  */
 
-function prototype(child, parent){
+function inheritPrototype(child, parent){
     let prototype = Object.create(parent.prototype);
     prototype.constructor = child;//增强对象
     child.prototype = prototype;

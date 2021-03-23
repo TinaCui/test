@@ -37,6 +37,10 @@ function getMaxProfit(arr) {
     }
     let minPrice = arr[0];
     let maxProfit = 0;
+    //需要先进行排序，否则，最小值出现在最大值的后面，下面算法会有误
+    arr.sort((a, b) => {
+        return a - b
+    });
     for (let i = 0; i < arr.length; i++) {
         let currentPrice = arr[i];
         minPrice = Math.min(currentPrice, minPrice);
@@ -45,6 +49,7 @@ function getMaxProfit(arr) {
     }
     return maxProfit;
 }
+
 
 /*
 随机生成指定长度的字符串
@@ -211,9 +216,9 @@ function unique(arr) {
     let map = new Map();
     let result = [];
     for (let item of arr) {
-        if(map.has(item)) {
+        if (map.has(item)) {
             map.set(item, true)
-        }else {
+        } else {
             map.set(item, false);
             result.push(item);
         }
