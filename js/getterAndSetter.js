@@ -13,7 +13,6 @@
  */
 function getter(obj, keyStr) {
 //test
-    //xxx
 }
 
 
