@@ -14,6 +14,7 @@
 function getter(obj, keyStr) {
 //test
     //xxxx2
+    //xxxxxx3
 }
 
 
