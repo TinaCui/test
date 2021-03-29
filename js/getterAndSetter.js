@@ -12,7 +12,7 @@
  * @param keyStr
  */
 function getter(obj, keyStr) {
-
+//test
 }
 
 
