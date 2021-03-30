@@ -12,10 +12,32 @@
  * @param keyStr
  */
 function getter(obj, keyStr) {
+    let keyArr = keyStr.split('.');
+    if (keyArr.length === 0) return;
 
+    let value;
+    let key = keyArr[0];
+    if (key.includes('[') && key.includes(']')) {
+        let keyStart = key.substring(0, key.indexOf('[')); //'b'
+        let indexes = key.match(/\[\d\]/g).map(item => (parseInt(item.substring(1, item.length - 1)))); // [0]
+        value = obj[keyStart]; //[{c:3}]
+        for (let index of indexes) {
+            value = value[index];
+        }
+    } else {
+        value = obj[key]
+    }
+    if (keyArr.length === 1) {
+        return value;
+
+    }
+    return getter(value, keyArr.slice(1).join('.'));
 }
 
-
+const a = {b: [{c: 3}]}
+getter(a, 'b[0].c') //3
+const f = {b: [[{d: [2]}], {c: 3}]}
+getter(f, 'b[0][0].d[0]') //2
 
 /**
  * 功能：实现一个setter函数，为给定的对象修改指定字符串key的值
@@ -30,5 +52,13 @@ function getter(obj, keyStr) {
  */
 
 function setter(obj, keyStr, value) {
+    let keyArr = keyStr.split('.');
+    if (keyArr.length === 0) return;
+
+    if (keyArr.length === 1) {
+        obj[keyArr[0]] = value;
+        return;
+    }
+    setter(obj[keyArr[0]], keyArr.slice(1).join('.'), value);
 
 }
