@@ -326,5 +326,14 @@ function compile(template, data) {
         return template.replace(reg, value);
     }
 }
+function compile(template, data) {
+    let reg = /\{\{(.*)\}\}/g;
+    let match = reg.exec(template);
+    if (match) {
+        let key = match[1];
+        let value = data[key]
+        return template.replace(reg, value);
+    }
+}
 let result  = compile('<div>{{name}}</div>', {name:'test'});
 console.log(result)

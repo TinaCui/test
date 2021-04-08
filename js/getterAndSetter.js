@@ -5,7 +5,7 @@
  * getter(a, 'b.c.d');
  *
  * const a = {b: [{c:3}]}
- * getter(a, 'b[0].c')
+ * getter(a, 'b[0].c')  等同于 getter(a, 'b.0.c')
  *
  * 考虑字符串key更复杂的情况，比如：'b[0].a[1][2].c[1]'
  * @param obj
@@ -33,6 +33,24 @@ function getter(obj, keyStr) {
     }
     return getter(value, keyArr.slice(1).join('.'));
 }
+
+
+
+function getter(obj, keyStr) {
+
+    if (!keyStr) return;
+
+    keyStr = keyStr.replace(/\[/g,'.');
+    keyStr = keyStr.replace(/\]/g,'');
+    let keyArr = keyStr.split('.');
+    if (keyArr.length === 1) {
+        return obj[keyArr[0]];
+
+    }
+    return getter(obj[keyArr[0]], keyArr.slice(1).join('.'));
+}
+
+
 
 const a = {b: [{c: 3}]}
 getter(a, 'b[0].c') //3
