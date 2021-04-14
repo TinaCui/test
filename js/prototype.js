@@ -25,7 +25,7 @@ console.log(foo.b)  // undefined, 原型链查找路径是:foo自身:没有-->fo
 console.log(F.a)    // value a,  原型链查找路径是: F自身：没有-->F.__proto__(Function.prototype):没有 --> Function.prototype.__proto__(Object.prototype):找到a
 console.log(F.b)    // value b,原型链查找路径是: F自身：没有-->F.__proto__(Function.prototype):找到b
 
-
+/*----------------------继承方法---------------------------------------------------------------------------------------------------------*/
 /**
  * 原型链继承：
  * 缺点：1.不能向父类传参

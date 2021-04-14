@@ -35,13 +35,14 @@ function getter(obj, keyStr) {
 }
 
 
-
+//利用数组和对象的取值都可以通过[]的方式
+//arr = ['a','b'] ; arr['0'] //'a';arr['0']会自动将'0'转成0
 function getter(obj, keyStr) {
 
     if (!keyStr) return;
 
     keyStr = keyStr.replace(/\[/g,'.');
-    keyStr = keyStr.replace(/\]/g,'');
+    keyStr = keyStr.replace(/\]/g,'');//'b.0.c'
     let keyArr = keyStr.split('.');
     if (keyArr.length === 1) {
         return obj[keyArr[0]];
