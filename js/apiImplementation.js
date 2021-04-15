@@ -80,7 +80,7 @@ function compose(...fns) {
 /*-------------------柯里化Currying-------------------------------------------------------------------------------------------------------------*/
 
 /**
- * 柯里化：把接受多个参数的函数转化成只接受单个参数的函数  ，参考https://www.jianshu.com/p/2975c25e4d71
+ * 柯里化：把接受多个参数的普通函数转化成一系列的嵌套函数 ，参考https://www.jianshu.com/p/2975c25e4d71
  *
  */
 
@@ -110,30 +110,23 @@ hasLetter('21212')      // false
 
 
 /* 经典面试题：实现一个add方法，使计算结果能够满足如下预期：
-add(1)(2)(3) = 6;
-add(1, 2, 3)(4) = 10;
-add(1)(2)(3)(4)(5) = 15;
+add(1)(2)(3) == 6;
+add(1, 2, 3)(4) == 10;
+add(1)(2)(3)(4)(5) == 15;
 */
 function add() {
-    // 第一次执行时，定义一个数组专门用来存储所有的参数
-    var _args = Array.prototype.slice.call(arguments);
+   let args = Array.prototype.slice.call(arguments);
 
-    // 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
-    var _adder = function() {
-        _args.push(...arguments);
-        return _adder;
-    };
-
-    // 利用toString隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+   let _adder = function(){
+       args.push(...arguments);
+       return _adder;
+   }
     _adder.toString = function () {
-        return _args.reduce(function (a, b) {
-            return a + b;
-        });
+        return args.reduce((a,b)=>a+b);
     }
-    return _adder;
+   return _adder;
 }
 
-add(1)(2)(3)                // 6
-add(1, 2, 3)(4)             // 10
-add(1)(2)(3)(4)(5)          // 15
-add(2, 6)(1)                // 9
+add(1)(2)(3) == 6 //true
+add(1, 2, 3)(4) == 10; //true
+add(1)(2)(3)(4)(5) == 15; //true
