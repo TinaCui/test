@@ -77,36 +77,71 @@ function compose(...fns) {
 }
 
 
-/*-------------------柯里化Currying-------------------------------------------------------------------------------------------------------------*/
+/*=======================柯里化Currying=================================================================================================*/
 
 /**
- * 柯里化：把接受多个参数的普通函数转化成一系列的嵌套函数 ，参考https://www.jianshu.com/p/2975c25e4d71
+ * 柯里化：把接受多个参数的函数转换成接受一个单一参数的函数：https://segmentfault.com/a/1190000018265172/
  *
  */
 
-/*正常正则验证字符串 reg.test(txt)*/
 
-// 普通函数封装后
-function check(reg, txt) {
-    return reg.test(txt)
+/*---------------------将普通函数add柯里化--------------------------------------------------------------------*/
+//方法一
+var add = function(num1, num2) {
+    return num1 + num2;
 }
+function curry(add) {
+    var arr = [];
 
-check(/\d+/g, 'test')       //false
-check(/[a-z]+/g, 'test')    //true
+    return function reply() {
+        var arg = Array.prototype.slice.call(arguments);
+        arr = arr.concat(arg);
 
-// Currying后，好处是：参数复用
-function curryingCheck(reg) {
-    return function(txt) {
-        return reg.test(txt)
+        if (arg.length === 0) { // 递归结束条件，修改为 传入空参数
+            return arr.reduce(function(p, c) {
+                return p = add(p, c);
+            }, 0)
+        } else {
+            return reply;
+        }
+    }
+}
+var sum = curry(add);
+
+console.log(sum(4)(3)(2)(1)(5)())   // 15
+
+
+//方法二：推荐
+function curry(f) {
+    var len = f.length; //获取函数f的参数个数
+
+    return function t() {
+        var innerLength = arguments.length,
+            args = Array.prototype.slice.call(arguments);
+
+        if (innerLength >= len) {   // 递归出口，普通函数的参数>=接收到的参数个数
+            return f.apply(undefined, args)
+        } else {
+            return function() {
+                var innerArgs = Array.prototype.slice.call(arguments),
+                    allArgs = args.concat(innerArgs);
+
+                return t.apply(undefined, allArgs)
+            }
+        }
     }
 }
 
-var hasNumber = curryingCheck(/\d+/g)
-var hasLetter = curryingCheck(/[a-z]+/g)
 
-hasNumber('test1')      // true
-hasNumber('testtest')   // false
-hasLetter('21212')      // false
+
+
+
+
+
+
+
+/*---------------------------------------------------------------------------------------------------*/
+
 
 
 /* 经典面试题：实现一个add方法，使计算结果能够满足如下预期：
