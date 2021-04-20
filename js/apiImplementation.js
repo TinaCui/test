@@ -111,7 +111,7 @@ var sum = curry(add);
 console.log(sum(4)(3)(2)(1)(5)())   // 15
 
 
-//方法二：推荐
+//方法二：通用函数（推荐）
 function curry(f) {
     var len = f.length; //获取函数f的参数个数
 
@@ -132,7 +132,9 @@ function curry(f) {
     }
 }
 
+const curried = curry(add);
 
+curried(4)(3)(2)
 
 
 
